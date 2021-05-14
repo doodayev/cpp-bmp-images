@@ -3,8 +3,10 @@
 #include <vector>
 #include <stdexcept>
 #include <iostream>
-
+using namespace std;
 #pragma pack(push, 1)
+
+
 struct BMPFileHeader {
     uint16_t file_type{ 0x4D42 };          // File type always BM which is 0x4D42 (stored as hex uint16_t in little endian)
     uint32_t file_size{ 0 };               // Size of the file (in bytes)
@@ -16,7 +18,7 @@ struct BMPFileHeader {
 struct BMPInfoHeader {
     uint32_t size{ 0 };                      // Size of this header (in bytes)
     int32_t width{ 0 };                      // width of bitmap in pixels
-    int32_t height{ 0 };                     // width of bitmap in pixels
+    int32_t height{ 0 };                     // height of bitmap in pixels
                                              //       (if positive, bottom-up, with origin in lower left corner)
                                              //       (if negative, top-down, with origin in upper left corner)
     uint16_t planes{ 1 };                    // No. of planes for the target device, this is always 1
@@ -45,10 +47,11 @@ struct BMP {
     BMPColorHeader bmp_color_header;
     std::vector<uint8_t> data;
 
+    
     BMP(const char *fname) {
         read(fname);
     }
-
+    
     void read(const char *fname) {
         std::ifstream inp{ fname, std::ios_base::binary };
         if (inp) {
@@ -109,7 +112,7 @@ struct BMP {
             }
         }
         else {
-            throw std::runtime_error("Unable to open the input image file.");
+            throw std::runtime_error("Unable to open the input image file   "+std::string(fname));
         }
     }
 
@@ -193,11 +196,226 @@ struct BMP {
         }
     }
 
+    void manipulate_region(uint32_t x0, uint32_t y0, uint32_t w, uint32_t h, uint8_t A) {
+        int choice, choice2, intensity;
+        cout << "What color do you want to change? " << endl;
+        cout << "Enter 1 for Blue, 2 for Green, 3 for Red " << endl;
+        cin >> choice;
+        cout << "To what color do you want to change it too?" << endl;
+        cout << "Enter 1 for Blue, 2 for Green, 3 for Red " << endl;
+        cin >> choice2;
+        cout << "Enter the intensity of the color. (From 0 to 255) " << endl;
+        cin >> intensity;
+        if (x0 + w > (uint32_t)bmp_info_header.width || y0 + h > (uint32_t)bmp_info_header.height) {
+            throw std::runtime_error("The region does not fit in the image!");
+        }
+
+        uint32_t channels = bmp_info_header.bit_count / 8;
+        if (choice==1 && choice2==1)
+        {
+          for (uint32_t y = y0; y < y0 + h; ++y) {
+            for (uint32_t x = x0; x < x0 + w; ++x) {
+                cout << channels*(y*bmp_info_header.width+x) << endl;
+                //Make blue thing blue
+                if(data[channels * (y * bmp_info_header.width + x) + 0]>80 && data[channels * (y * bmp_info_header.width + x) + 0]<255) 
+                {
+                  data[channels * (y * bmp_info_header.width + x) + 0] = intensity;
+                  data[channels * (y * bmp_info_header.width + x) + 1] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 2] = 0;
+                }
+                //data[channels * (y * bmp_info_header.width + x) + 0] = B;
+                //data[channels * (y * bmp_info_header.width + x) + 1] = G;
+                //data[channels * (y * bmp_info_header.width + x) + 2] = R;
+                if (channels == 4) {
+                    data[channels * (y * bmp_info_header.width + x) + 3] = A;
+                }
+            }
+        }
+        }
+        if (choice == 1 && choice2==2)
+        {
+          for (uint32_t y = y0; y < y0 + h; ++y) {
+            for (uint32_t x = x0; x < x0 + w; ++x) {
+                cout << channels*(y*bmp_info_header.width+x) << endl;
+                //Make blue thing green
+                if(data[channels * (y * bmp_info_header.width + x) + 0]>80 && data[channels * (y * bmp_info_header.width + x) + 0]<255) 
+                {
+                  data[channels * (y * bmp_info_header.width + x) + 0] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 1] = intensity;
+                  data[channels * (y * bmp_info_header.width + x) + 2] = 0;
+                }
+                if (channels == 4) {
+                    data[channels * (y * bmp_info_header.width + x) + 3] = A;
+                }
+            }
+        }
+        }
+        if (choice == 1 && choice2==3)
+        {
+          for (uint32_t y = y0; y < y0 + h; ++y) {
+            for (uint32_t x = x0; x < x0 + w; ++x) {
+                cout << channels*(y*bmp_info_header.width+x) << endl;
+                //Make blue thing red
+                if(data[channels * (y * bmp_info_header.width + x) + 0]>80 && data[channels * (y * bmp_info_header.width + x) + 0]<255) 
+                {
+                  data[channels * (y * bmp_info_header.width + x) + 0] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 1] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 2] = intensity;
+                }
+                if (channels == 4) {
+                    data[channels * (y * bmp_info_header.width + x) + 3] = A;
+                }
+            }
+        }
+        }
+        if (choice == 2 && choice2==1)
+        {
+          for (uint32_t y = y0; y < y0 + h; ++y) {
+            for (uint32_t x = x0; x < x0 + w; ++x) {
+                cout << channels*(y*bmp_info_header.width+x) << endl;
+                //Make green thing blue
+                if(data[channels * (y * bmp_info_header.width + x) + 1]>80 && data[channels * (y * bmp_info_header.width + x) + 1]<255) 
+                {
+                  data[channels * (y * bmp_info_header.width + x) + 0] = intensity;
+                  data[channels * (y * bmp_info_header.width + x) + 1] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 2] = 0;
+                }
+                if (channels == 4) {
+                    data[channels * (y * bmp_info_header.width + x) + 3] = A;
+                }
+            }
+        }
+        }
+        if (choice == 2 && choice2==2)
+        {
+          for (uint32_t y = y0; y < y0 + h; ++y) {
+            for (uint32_t x = x0; x < x0 + w; ++x) {
+                cout << channels*(y*bmp_info_header.width+x) << endl;
+                //Make green thing green
+                if(data[channels * (y * bmp_info_header.width + x) + 1]>80 && data[channels * (y * bmp_info_header.width + x) + 1]<255) 
+                {
+                  data[channels * (y * bmp_info_header.width + x) + 0] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 1] = intensity;
+                  data[channels * (y * bmp_info_header.width + x) + 2] = 0;
+                }
+                if (channels == 4) {
+                    data[channels * (y * bmp_info_header.width + x) + 3] = A;
+                }
+            }
+        }
+        }
+        if (choice == 2 && choice2==3)
+        {
+          for (uint32_t y = y0; y < y0 + h; ++y) {
+            for (uint32_t x = x0; x < x0 + w; ++x) {
+                cout << channels*(y*bmp_info_header.width+x) << endl;
+                //Make green thing red
+                if(data[channels * (y * bmp_info_header.width + x) + 1]>80 && data[channels * (y * bmp_info_header.width + x) + 1]<255) 
+                {
+                  data[channels * (y * bmp_info_header.width + x) + 0] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 1] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 2] = intensity;
+                }
+                if (channels == 4) {
+                    data[channels * (y * bmp_info_header.width + x) + 3] = A;
+                }
+            }
+        }
+        }
+        if (choice == 3 && choice2==1)
+        {
+          for (uint32_t y = y0; y < y0 + h; ++y) {
+            for (uint32_t x = x0; x < x0 + w; ++x) {
+                cout << channels*(y*bmp_info_header.width+x) << endl;
+                //Make red thing blue
+                if(data[channels * (y * bmp_info_header.width + x) + 2]>80 && data[channels * (y * bmp_info_header.width + x) + 2]<255) 
+                {
+                  data[channels * (y * bmp_info_header.width + x) + 0] = intensity;
+                  data[channels * (y * bmp_info_header.width + x) + 1] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 2] = 0;
+                }
+                if (channels == 4) {
+                    data[channels * (y * bmp_info_header.width + x) + 3] = A;
+                }
+            }
+        }
+        }
+        if (choice == 3 && choice2==2)
+        {
+          for (uint32_t y = y0; y < y0 + h; ++y) {
+            for (uint32_t x = x0; x < x0 + w; ++x) {
+                cout << channels*(y*bmp_info_header.width+x) << endl;
+                //Make red thing green
+                if(data[channels * (y * bmp_info_header.width + x) + 2]>80 && data[channels * (y * bmp_info_header.width + x) + 2]<255) 
+                {
+                  data[channels * (y * bmp_info_header.width + x) + 0] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 1] = intensity;
+                  data[channels * (y * bmp_info_header.width + x) + 2] = 0;
+                }
+                if (channels == 4) {
+                    data[channels * (y * bmp_info_header.width + x) + 3] = A;
+                }
+            }
+        }
+        }
+        if (choice == 3 && choice2==3)
+        {
+          for (uint32_t y = y0; y < y0 + h; ++y) {
+            for (uint32_t x = x0; x < x0 + w; ++x) {
+                cout << channels*(y*bmp_info_header.width+x) << endl;
+                //Make red thing blue
+                if(data[channels * (y * bmp_info_header.width + x) + 2]>80 && data[channels * (y * bmp_info_header.width + x) + 2]<255) 
+                {
+                  data[channels * (y * bmp_info_header.width + x) + 0] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 1] = 0;
+                  data[channels * (y * bmp_info_header.width + x) + 2] = intensity;
+                }
+                if (channels == 4) {
+                    data[channels * (y * bmp_info_header.width + x) + 3] = A;
+                }
+            }
+        }
+        }
+        
+    }
+
+    int OrganizeAverageRed()
+    {
+      int ColorRed[bmp_info_header.height][bmp_info_header.width];
+      int ColorGreen[bmp_info_header.height][bmp_info_header.width];;
+      int ColorBlue[bmp_info_header.height][bmp_info_header.width];
+      float pixels=bmp_info_header.height*bmp_info_header.width;
+      float intensity=0;
+      float sum=0;
+      uint32_t channels = bmp_info_header.bit_count / 8;
+      cout << "The Width of the image is " << bmp_info_header.width << endl;
+      cout << "The height of the image is " << bmp_info_header.height << endl;
+      for (int y = 0; y < bmp_info_header.height; ++y) {
+            for (int x = 0; x < bmp_info_header.width; ++x) {
+                //cout << channels*(y*bmp_info_header.width+x) << endl;
+                //Read red
+                  ColorBlue[y][x]=data[channels * (y * bmp_info_header.width + x) + 0];
+                  ColorGreen[y][x]=data[channels * (y * bmp_info_header.width + x) + 1];
+                  ColorRed[y][x]=data[channels * (y * bmp_info_header.width + x) + 2];
+                }
+            }
+      for(int y=0; y<bmp_info_header.height; y++)
+      {
+        for(int x=0; x<bmp_info_header.width; x++)
+        {
+          sum=ColorRed[y][x]+sum-((ColorBlue[y][x])/2+(ColorGreen[y][x])/2);
+        }
+      }
+      
+      intensity=sum/pixels;
+      cout << intensity << endl;
+      return intensity;
+    }
+
     void set_pixel(uint32_t x0, uint32_t y0, uint8_t B, uint8_t G, uint8_t R, uint8_t A) {
         if (x0 >= (uint32_t)bmp_info_header.width || y0 >= (uint32_t)bmp_info_header.height || x0 < 0 || y0 < 0) {
             throw std::runtime_error("The point is outside the image boundaries!");
         }
-
         uint32_t channels = bmp_info_header.bit_count / 8;
         data[channels * (y0 * bmp_info_header.width + x0) + 0] = B;
         data[channels * (y0 * bmp_info_header.width + x0) + 1] = G;
