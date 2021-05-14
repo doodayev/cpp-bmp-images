@@ -1,53 +1,91 @@
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
 #include "BMP.h"
+using namespace std;
+
+void insertionSort(float arr[], int n, string f[])
+{
+    int i, key, j;
+    string key2;
+    for (i = 1; i < n; i++)
+    {
+        key = arr[i];
+        key2=f[i];
+        j = i - 1;
+        while (j >= 0 && arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            f[j+1]=f[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+        f[j+1]=key2;
+    }
+}
+void printArray(string f[], float arr[], int n)
+{
+    int i;
+    for (i = 0; i < n; i++)
+        cout << f[i] << " had an average of " << arr[i] << endl;
+    cout << endl;
+}
 
 int main() {
-	BMP bmp9("t1_24.bmp");
-	bmp9.fill_region(0, 0, 50, 50, 0, 0, 255, 255);
-	bmp9.fill_region(150, 0, 100, 150, 0, 255, 0, 255);
-	bmp9.write("t1_24_copy.bmp");
+  string name;
+  string files[100];
+  int count=0;
+  ifstream FileNames("Files.txt");
+  while (getline (FileNames, name))
+  {
+    files[count]=name;
+    name=files[count];
+    count++;
+  }
+  cout << "The files in this directory are... " << endl;
+  for(int i=0; i<count; i++)
+  {
+    cout << files[i] << endl;
+  }
+ 
+  int choice;
+  int Pictures[100];
+  cout << "\n\n Time to start organizing by the color red! \n";
+  int iteration=0;
+float averages[count];
+  
+ 
+  vector <BMP> Bruh;
+  BMP temp("placeholder.bmp");
+  for (int j=0; j<count; j++)
+  {
+    BMP temp(files[j].c_str());
+    Bruh.push_back(temp);
+    averages[j]=temp.OrganizeAverageRed();
+  }
 
-	BMP bmp10("t2_24.bmp");
-	bmp10.fill_region(0, 0, 50, 50, 0, 0, 255, 255);
-	bmp10.fill_region(150, 0, 100, 150, 0, 255, 0, 255);
-	bmp10.write("t2_24_copy.bmp");
-
-	BMP bmp5("Shapes_24.bmp");
-	bmp5.fill_region(0, 0, 100, 200, 0, 0, 255, 255);
-	bmp5.fill_region(150, 0, 209, 203, 0, 255, 0, 255);
-	bmp5.write("Shapes_24_copy.bmp");
-
-	// Read an image from disk and write it back:
-	BMP bmp("Shapes.bmp");
-	bmp.fill_region(0, 0, 100, 200, 0, 0, 255, 255);
-	bmp.write("Shapes_copy.bmp");
-
-	// Create a BMP image in memory, modify it, save it on disk
-	BMP bmp2(800, 600);
-	bmp2.fill_region(50, 20, 100, 200, 0, 0, 255, 255);
-	bmp2.write("img_test.bmp");
-
-	// Create a 24 bits/pixel BMP image in memory, modify it, save it on disk
-	BMP bmp3(200, 200, false);
-	bmp3.fill_region(50, 20, 100, 100, 255, 0, 255, 255);
-	bmp3.write("img_test_24bits.bmp");
-
-	BMP bmp4("img_test_24bits.bmp");
-	bmp4.write("img_test_24bits_2.bmp");
-
-	BMP bmp6(403, 305, false);
-	bmp6.fill_region(0, 0, 50, 50, 0, 0, 255, 0);
-	bmp6.write("test6.bmp");
-
-	BMP bmp7("test6.bmp");
-	bmp7.fill_region(0, 0, 40, 40, 255, 0, 0, 0);
-	bmp7.write("test6_2.bmp");
-
-	BMP bmp8(200, 200, false);
-	bmp8.fill_region(0, 0, 100, 100, 255, 0, 255, 255);
-	bmp8.write("img_test_24bits_3.bmp");
-
-	BMP bmp11("test_pnet.bmp");
-	bmp11.fill_region(0, 0, 100, 100, 255, 0, 255, 255);
-	bmp11.write("test_pnet_copy.bmp");
+for (int k=0; k<count; k++)
+{
+  cout << "Average " << k << "   " << averages[k] << endl;
 }
+insertionSort(averages, count, files);
+printArray(files, averages, count);
+
+char c;
+for (int l=0; l<count; l++)
+{
+ifstream i_file(files[l]);
+ofstream o_file(to_string(l)+"_"+files[l]);
+while(i_file.get(c))
+{
+    o_file.put(c);
+}
+i_file.close();
+o_file.close();
+}
+
+
+}
+
+
