@@ -34,37 +34,74 @@ void printArray(string f[], float arr[], int n)
 
 int main() {
   string name;
-  string files[100];
+  
   int count=0;
+  int choose;
   ifstream FileNames("Files.txt");
   while (getline (FileNames, name))
   {
-    files[count]=name;
-    name=files[count];
     count++;
   }
+  string files[count];
+  count=0;
+  FileNames.close();
+  ifstream FileNames2("Files.txt");
+  while (getline (FileNames2, name))
+  {
+  files[count]=name;
+  name=files[count];
+  count++;
+  }
+  FileNames.close();
   cout << "The files in this directory are... " << endl;
   for(int i=0; i<count; i++)
   {
     cout << files[i] << endl;
   }
- 
-  int choice;
-  int Pictures[100];
-  cout << "\n\n Time to start organizing by the color red! \n";
-  int iteration=0;
-float averages[count];
   
- 
+  int choice;
+  int Pictures[count];
+  cout << "By which color do you want to sort these pictures? \n";
+ Repeat:
+  cout << "Enter 1 for Red, 2 for Green, 3 for Blue. \n";
+  cin >> choose;
   vector <BMP> Bruh;
   BMP temp("placeholder.bmp");
+  float averages[count];
+ if (choose == 1)
+ {
+  cout << "\n\n Time to start organizing by the color red! \n";
   for (int j=0; j<count; j++)
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
     averages[j]=temp.OrganizeAverageRed();
   }
-
+ }
+ else if (choose==2)
+ {
+  cout << "\n\n Time to start organizing by the color green! \n";
+  for (int j=0; j<count; j++)
+  {
+    BMP temp(files[j].c_str());
+    Bruh.push_back(temp);
+    averages[j]=temp.OrganizeAverageGreen();
+  }
+ }
+ else if (choose==3)
+ {
+    cout << "\n\n Time to start organizing by the color red! \n";
+  for (int j=0; j<count; j++)
+  {
+    BMP temp(files[j].c_str());
+    Bruh.push_back(temp);
+    averages[j]=temp.OrganizeAverageBlue();
+  }
+ }
+ else{
+     goto Repeat;
+ }
+ RestOfIt:
 for (int k=0; k<count; k++)
 {
   cout << "Average " << k << "   " << averages[k] << endl;
