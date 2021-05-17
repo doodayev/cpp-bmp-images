@@ -36,7 +36,7 @@ int main() {
   string name;
   
   int count=0;
-  int choose;
+  string choose;
   ifstream FileNames("Files.txt");
   while (getline (FileNames, name))
   {
@@ -68,7 +68,7 @@ int main() {
   vector <BMP> Bruh;
   BMP temp("placeholder.bmp");
   float averages[count];
- if (choose == 1)
+ if (choose == "1" || choose=="Red" || choose=="red" || choose=="r")
  {
   cout << "\n\n Time to start organizing by the color red! \n";
   for (int j=0; j<count; j++)
@@ -78,7 +78,7 @@ int main() {
     averages[j]=temp.OrganizeAverageRed();
   }
  }
- else if (choose==2)
+ else if (choose=="2" || choose=="Green" || choose=="green" || choose=="g")
  {
   cout << "\n\n Time to start organizing by the color green! \n";
   for (int j=0; j<count; j++)
@@ -88,7 +88,7 @@ int main() {
     averages[j]=temp.OrganizeAverageGreen();
   }
  }
- else if (choose==3)
+ else if (choose=="3" || choose=="Blue" || choose=="blue" || choose=="b")
  {
     cout << "\n\n Time to start organizing by the color red! \n";
   for (int j=0; j<count; j++)
@@ -124,5 +124,3 @@ o_file.close();
 
 
 }
-
-
