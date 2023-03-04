@@ -379,7 +379,8 @@ struct BMP {
         
     }
 
-    int OrganizeAverageRed()
+    //Prototype to get rid of OrganizeAverageBlue, OrganizeAverageRed, and OrganizeAverage Green, just have this
+    int OrganizeAverageColor(int Choice)
     {
       int ColorRed[bmp_info_header.height][bmp_info_header.width];
       int ColorGreen[bmp_info_header.height][bmp_info_header.width];;
@@ -399,84 +400,46 @@ struct BMP {
                   ColorRed[y][x]=data[channels * (y * bmp_info_header.width + x) + 2];
                 }
             }
-      for(int y=0; y<bmp_info_header.height; y++)
-      {
-        for(int x=0; x<bmp_info_header.width; x++)
-        {
-          sum=ColorRed[y][x]+sum-((ColorBlue[y][x])/2+(ColorGreen[y][x])/2);
-        }
-      }
-      
-      intensity=sum/pixels;
-      cout << intensity << endl;
-      return intensity;
-    }
-    
-    int OrganizeAverageGreen()
-    {
-      int ColorRed[bmp_info_header.height][bmp_info_header.width];
-      int ColorGreen[bmp_info_header.height][bmp_info_header.width];;
-      int ColorBlue[bmp_info_header.height][bmp_info_header.width];
-      float pixels=bmp_info_header.height*bmp_info_header.width;
-      float intensity=0;
-      float sum=0;
-      uint32_t channels = bmp_info_header.bit_count / 8;
-      cout << "The Width of the image is " << bmp_info_header.width << endl;
-      cout << "The height of the image is " << bmp_info_header.height << endl;
-      for (int y = 0; y < bmp_info_header.height; ++y) {
-            for (int x = 0; x < bmp_info_header.width; ++x) {
-                //cout << channels*(y*bmp_info_header.width+x) << endl;
-                //Read Green
-                  ColorBlue[y][x]=data[channels * (y * bmp_info_header.width + x) + 0];
-                  ColorGreen[y][x]=data[channels * (y * bmp_info_header.width + x) + 1];
-                  ColorRed[y][x]=data[channels * (y * bmp_info_header.width + x) + 2];
+        switch(Choice) {
+            case 1:
+                for(int y=0; y<bmp_info_header.height; y++)
+                {
+                    for(int x=0; x<bmp_info_header.width; x++)
+                    {
+                        sum=ColorRed[y][x]+sum-((ColorBlue[y][x])/2+(ColorGreen[y][x])/2);
+                    }
                 }
-            }
-      for(int y=0; y<bmp_info_header.height; y++)
-      {
-        for(int x=0; x<bmp_info_header.width; x++)
-        {
-          sum=ColorGreen[y][x]+sum-((ColorBlue[y][x])/2+(ColorRed[y][x])/2);
-        }
-      }
-      
-      intensity=sum/pixels;
-      cout << intensity << endl;
-      return intensity;
-    }
-    
-    int OrganizeAverageBlue()
-    {
-      int ColorRed[bmp_info_header.height][bmp_info_header.width];
-      int ColorGreen[bmp_info_header.height][bmp_info_header.width];;
-      int ColorBlue[bmp_info_header.height][bmp_info_header.width];
-      float pixels=bmp_info_header.height*bmp_info_header.width;
-      float intensity=0;
-      float sum=0;
-      uint32_t channels = bmp_info_header.bit_count / 8;
-      cout << "The Width of the image is " << bmp_info_header.width << endl;
-      cout << "The height of the image is " << bmp_info_header.height << endl;
-      for (int y = 0; y < bmp_info_header.height; ++y) {
-            for (int x = 0; x < bmp_info_header.width; ++x) {
-                //cout << channels*(y*bmp_info_header.width+x) << endl;
-                //Read Blue
-                  ColorBlue[y][x]=data[channels * (y * bmp_info_header.width + x) + 0];
-                  ColorGreen[y][x]=data[channels * (y * bmp_info_header.width + x) + 1];
-                  ColorRed[y][x]=data[channels * (y * bmp_info_header.width + x) + 2];
+                intensity=sum/pixels;
+                cout << intensity << endl;
+                return intensity;
+            case 2:
+                for(int y=0; y<bmp_info_header.height; y++)
+                {
+                    for(int x=0; x<bmp_info_header.width; x++)
+                    {
+                        sum=ColorGreen[y][x]+sum-((ColorBlue[y][x])/2+(ColorRed[y][x])/2);
+                    }
                 }
+                intensity=sum/pixels;
+                cout << intensity << endl;
+                return intensity;
+            case 3:
+                for(int y=0; y<bmp_info_header.height; y++)
+                {
+                    for(int x=0; x<bmp_info_header.width; x++)
+                    {
+                        sum=ColorBlue[y][x]+sum-((ColorRed[y][x])/2+(ColorGreen[y][x])/2);
+                    }
+                }
+                intensity=sum/pixels;
+                cout << intensity << endl;
+                return intensity;
             }
-      for(int y=0; y<bmp_info_header.height; y++)
-      {
-        for(int x=0; x<bmp_info_header.width; x++)
-        {
-          sum=ColorBlue[y][x]+sum-((ColorGreen[y][x])/2+(ColorRed[y][x])/2);
-        }
-      }
-      
-      intensity=sum/pixels;
-      cout << intensity << endl;
-      return intensity;
+
+        return 0; // LOL
     }
+
+
 
     void set_pixel(uint32_t x0, uint32_t y0, uint8_t B, uint8_t G, uint8_t R, uint8_t A) {
         if (x0 >= (uint32_t)bmp_info_header.width || y0 >= (uint32_t)bmp_info_header.height || x0 < 0 || y0 < 0) {

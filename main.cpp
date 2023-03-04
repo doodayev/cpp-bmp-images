@@ -75,7 +75,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageRed();
+    averages[j]=temp.OrganizeAverageColor(1);
   }
  }
  else if (choose=="2" || choose=="Green" || choose=="green" || choose=="g")
@@ -85,7 +85,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageGreen();
+    averages[j]=temp.OrganizeAverageColor(2);
   }
  }
  else if (choose=="3" || choose=="Blue" || choose=="blue" || choose=="b")
@@ -95,7 +95,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageBlue();
+    averages[j]=temp.OrganizeAverageColor(3);
   }
  }
  else{
