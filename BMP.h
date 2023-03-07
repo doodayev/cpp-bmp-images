@@ -3,6 +3,7 @@
 #include <vector>
 #include <stdexcept>
 #include <iostream>
+#include <math.h>
 using namespace std;
 #pragma pack(push, 1)
 
@@ -383,11 +384,30 @@ struct BMP {
     int OrganizeAverageColor(int Choice)
     {
       int ColorRed[bmp_info_header.height][bmp_info_header.width];
-      int ColorGreen[bmp_info_header.height][bmp_info_header.width];;
+      int ColorGreen[bmp_info_header.height][bmp_info_header.width];
       int ColorBlue[bmp_info_header.height][bmp_info_header.width];
-      float pixels=bmp_info_header.height*bmp_info_header.width;
-      float intensity=0;
-      float sum=0;
+
+      int Red;
+      int Green;
+      int Blue;
+
+      // sqrt((255,0,0)^2-(x,y,z)^2)
+      // d(h,w)=sqrt((R-x)^2+(G-y)^2+(B-y)^2)
+      /*
+       * sum=ColorRed[y][x]+sum-((ColorBlue[y][x])/2+(ColorGreen[y][x])/2);
+       *
+       */
+      int Rresult;
+      int Gresult;
+      int Bresult;
+      int collection;
+      double FinalResult=0;
+
+
+
+      double pixels=bmp_info_header.height*bmp_info_header.width;
+      double intensity=0;
+      double sum=0;
       uint32_t channels = bmp_info_header.bit_count / 8;
       cout << "The Width of the image is " << bmp_info_header.width << endl;
       cout << "The height of the image is " << bmp_info_header.height << endl;
@@ -402,44 +422,231 @@ struct BMP {
             }
         switch(Choice) {
             case 1:
+                Red=255;
+                Green=0;
+                Blue=0;
                 for(int y=0; y<bmp_info_header.height; y++)
                 {
                     for(int x=0; x<bmp_info_header.width; x++)
                     {
-                        sum=ColorRed[y][x]+sum-((ColorBlue[y][x])/2+(ColorGreen[y][x])/2);
+                        Rresult=ColorRed[y][x]-Red;
+                        Gresult=ColorGreen[y][x]-Green;
+                        Bresult=ColorBlue[y][x]-Blue;
+
+                        Rresult=pow(Rresult,2); // Square these three
+                        Gresult=pow(Gresult,2);
+                        Bresult=pow(Bresult,2);
+
+                        collection=Rresult+Gresult+Bresult; //Add them up (2nd to last step)
+                        FinalResult=powf(collection,0.5)+FinalResult;  // Squareroot to finally find "distance" between given and intended color
                     }
                 }
-                intensity=sum/pixels;
+                //Change this maybe
+                intensity=FinalResult/pixels;
                 cout << intensity << endl;
                 return intensity;
             case 2:
+                Red=0;
+                Green=255;
+                Blue=0;
                 for(int y=0; y<bmp_info_header.height; y++)
                 {
                     for(int x=0; x<bmp_info_header.width; x++)
                     {
-                        sum=ColorGreen[y][x]+sum-((ColorBlue[y][x])/2+(ColorRed[y][x])/2);
+                        Rresult=ColorRed[y][x]-Red;
+                        Gresult=ColorGreen[y][x]-Green;
+                        Bresult=ColorBlue[y][x]-Blue;
+
+                        Rresult=pow(Rresult,2); // Square these three
+                        Gresult=pow(Gresult,2);
+                        Bresult=pow(Bresult,2);
+
+                        collection=Rresult+Gresult+Bresult; //Add them up (2nd to last step)
+                        FinalResult=powf(collection,0.5)+FinalResult;  // Squareroot to finally find "distance" between given and intended color
                     }
                 }
-                intensity=sum/pixels;
+                //Change this maybe
+                intensity=FinalResult/pixels;
                 cout << intensity << endl;
                 return intensity;
             case 3:
+                Red=0;
+                Green=0;
+                Blue=255;
                 for(int y=0; y<bmp_info_header.height; y++)
                 {
                     for(int x=0; x<bmp_info_header.width; x++)
                     {
-                        sum=ColorBlue[y][x]+sum-((ColorRed[y][x])/2+(ColorGreen[y][x])/2);
+                        Rresult=ColorRed[y][x]-Red;
+                        Gresult=ColorGreen[y][x]-Green;
+                        Bresult=ColorBlue[y][x]-Blue;
+
+                        Rresult=pow(Rresult,2); // Square these three
+                        Gresult=pow(Gresult,2);
+                        Bresult=pow(Bresult,2);
+
+                        collection=Rresult+Gresult+Bresult; //Add them up (2nd to last step)
+                        FinalResult=powf(collection,0.5)+FinalResult;  // Squareroot to finally find "distance" between given and intended color
                     }
                 }
-                intensity=sum/pixels;
+                //Change this maybe
+                intensity=FinalResult/pixels;
                 cout << intensity << endl;
                 return intensity;
-            }
+            case 4:
+                //Black
+                Red=0;
+                Green=0;
+                Blue=0;
+                for(int y=0; y<bmp_info_header.height; y++)
+                {
+                    for(int x=0; x<bmp_info_header.width; x++)
+                    {
+                        Rresult=ColorRed[y][x]-Red;
+                        Gresult=ColorGreen[y][x]-Green;
+                        Bresult=ColorBlue[y][x]-Blue;
 
-        return 0; // LOL
+                        Rresult=pow(Rresult,2); // Square these three
+                        Gresult=pow(Gresult,2);
+                        Bresult=pow(Bresult,2);
+
+                        collection=Rresult+Gresult+Bresult; //Add them up (2nd to last step)
+                        FinalResult=powf(collection,0.5)+FinalResult;  // Squareroot to finally find "distance" between given and intended color
+                    }
+                }
+                //Change this maybe
+                intensity=FinalResult/pixels;
+                cout << intensity << endl;
+                return intensity;
+            case 5:
+                // Yellow
+                Red=0;
+                Green=255;
+                Blue=255;
+                for(int y=0; y<bmp_info_header.height; y++)
+                {
+                    for(int x=0; x<bmp_info_header.width; x++)
+                    {
+                        Rresult=ColorRed[y][x]-Red;
+                        Gresult=ColorGreen[y][x]-Green;
+                        Bresult=ColorBlue[y][x]-Blue;
+
+                        Rresult=pow(Rresult,2); // Square these three
+                        Gresult=pow(Gresult,2);
+                        Bresult=pow(Bresult,2);
+
+                        collection=Rresult+Gresult+Bresult; //Add them up (2nd to last step)
+                        FinalResult=powf(collection,0.5)+FinalResult;  // Squareroot to finally find "distance" between given and intended color
+                    }
+                }
+                //Change this maybe
+                intensity=FinalResult/pixels;
+                cout << intensity << endl;
+                return intensity;
+            case 6:
+            //turquoise (aqua)
+                Red=0;
+                Green=255;
+                Blue=255;
+                for(int y=0; y<bmp_info_header.height; y++)
+                {
+                    for(int x=0; x<bmp_info_header.width; x++)
+                    {
+                        Rresult=ColorRed[y][x]-Red;
+                        Gresult=ColorGreen[y][x]-Green;
+                        Bresult=ColorBlue[y][x]-Blue;
+
+                        Rresult=pow(Rresult,2); // Square these three
+                        Gresult=pow(Gresult,2);
+                        Bresult=pow(Bresult,2);
+
+                        collection=Rresult+Gresult+Bresult; //Add them up (2nd to last step)
+                        FinalResult=powf(collection,0.5)+FinalResult;  // Squareroot to finally find "distance" between given and intended color
+                    }
+                }
+                //Change this maybe
+                intensity=FinalResult/pixels;
+                cout << intensity << endl;
+                return intensity;
+            case 7:
+                //"fuchsia" (kind of like purple)
+                Red=255;
+                Green=0;
+                Blue=255;
+                for(int y=0; y<bmp_info_header.height; y++)
+                {
+                    for(int x=0; x<bmp_info_header.width; x++)
+                    {
+                        Rresult=ColorRed[y][x]-Red;
+                        Gresult=ColorGreen[y][x]-Green;
+                        Bresult=ColorBlue[y][x]-Blue;
+
+                        Rresult=pow(Rresult,2); // Square these three
+                        Gresult=pow(Gresult,2);
+                        Bresult=pow(Bresult,2);
+
+                        collection=Rresult+Gresult+Bresult; //Add them up (2nd to last step)
+                        FinalResult=powf(collection,0.5)+FinalResult;  // Squareroot to finally find "distance" between given and intended color
+                    }
+                }
+                //Change this maybe
+                intensity=FinalResult/pixels;
+                cout << intensity << endl;
+                return intensity;
+            case 8:
+                Red=0;
+                Green=162;
+                Blue=232;
+                for(int y=0; y<bmp_info_header.height; y++)
+                {
+                    for(int x=0; x<bmp_info_header.width; x++)
+                    {
+                        Rresult=ColorRed[y][x]-Red;
+                        Gresult=ColorGreen[y][x]-Green;
+                        Bresult=ColorBlue[y][x]-Blue;
+
+                        Rresult=pow(Rresult,2); // Square these three
+                        Gresult=pow(Gresult,2);
+                        Bresult=pow(Bresult,2);
+
+                        collection=Rresult+Gresult+Bresult; //Add them up (2nd to last step)
+                        FinalResult=powf(collection,0.5)+FinalResult;  // Squareroot to finally find "distance" between given and intended color
+                    }
+                }
+                //Change this maybe
+                intensity=FinalResult/pixels;
+                cout << intensity << endl;
+                return intensity;
+            case 9:
+                Red=180;
+                Green=41;
+                Blue=41;
+                for(int y=0; y<bmp_info_header.height; y++)
+                {
+                    for(int x=0; x<bmp_info_header.width; x++)
+                    {
+                        Rresult=ColorRed[y][x]-Red;
+                        Gresult=ColorGreen[y][x]-Green;
+                        Bresult=ColorBlue[y][x]-Blue;
+
+                        Rresult=pow(Rresult,2); // Square these three
+                        Gresult=pow(Gresult,2);
+                        Bresult=pow(Bresult,2);
+
+                        collection=Rresult+Gresult+Bresult; //Add them up (2nd to last step)
+                        FinalResult=powf(collection,0.5)+FinalResult;  // Squareroot to finally find "distance" between given and intended color
+                    }
+                }
+                //Change this maybe
+                intensity=FinalResult/pixels;
+                cout << intensity << endl;
+                return intensity;
+
     }
-
-
+    return 0;
+}
+    //void WeLoopin() Make sure to implement this, to aviod copy-
+    //pasting so much of the double for loop in the function above
 
     void set_pixel(uint32_t x0, uint32_t y0, uint8_t B, uint8_t G, uint8_t R, uint8_t A) {
         if (x0 >= (uint32_t)bmp_info_header.width || y0 >= (uint32_t)bmp_info_header.height || x0 < 0 || y0 < 0) {

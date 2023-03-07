@@ -63,7 +63,8 @@ int main() {
   int Pictures[count];
   cout << "By which color do you want to sort these pictures? \n";
  Repeat:
-  cout << "Enter 1 for Red, 2 for Green, 3 for Blue. \n";
+  cout << "Enter 1 for Red, 2 for Green, 3 for Blue, 4 for black \n";
+  cout << "5 for yellow, 6 for turquoise, 7 for light purple, 8 for blue idk name of, 9 for red idk name of \n";
   cin >> choose;
   vector <BMP> Bruh;
   BMP temp("placeholder.bmp");
@@ -90,7 +91,67 @@ int main() {
  }
  else if (choose=="3" || choose=="Blue" || choose=="blue" || choose=="b")
  {
-    cout << "\n\n Time to start organizing by the color red! \n";
+    cout << "\n\n Time to start organizing by the color blue! \n";
+  for (int j=0; j<count; j++)
+  {
+    BMP temp(files[j].c_str());
+    Bruh.push_back(temp);
+    averages[j]=temp.OrganizeAverageColor(3);
+  }
+ }
+ else if (choose=="4")
+ {
+    cout << "\n\n Time to start organizing by the color black! \n";
+  for (int j=0; j<count; j++)
+  {
+    BMP temp(files[j].c_str());
+    Bruh.push_back(temp);
+    averages[j]=temp.OrganizeAverageColor(4);
+  }
+ }
+ else if (choose=="5")
+ {
+    cout << "\n\n Time to start organizing by the color yellow! \n";
+  for (int j=0; j<count; j++)
+  {
+    BMP temp(files[j].c_str());
+    Bruh.push_back(temp);
+    averages[j]=temp.OrganizeAverageColor(5);
+  }
+ }
+ else if (choose=="6")
+ {
+    cout << "\n\n Time to start organizing by the color turquoise! \n";
+  for (int j=0; j<count; j++)
+  {
+    BMP temp(files[j].c_str());
+    Bruh.push_back(temp);
+    averages[j]=temp.OrganizeAverageColor(6);
+  }
+ }
+ else if (choose=="7")
+ {
+    cout << "\n\n Time to start organizing by the color light purple! \n";
+  for (int j=0; j<count; j++)
+  {
+    BMP temp(files[j].c_str());
+    Bruh.push_back(temp);
+    averages[j]=temp.OrganizeAverageColor(3);
+  }
+ }
+ else if (choose=="8")
+ {
+    cout << "\n\n Time to start organizing by the color idk blue! \n";
+  for (int j=0; j<count; j++)
+  {
+    BMP temp(files[j].c_str());
+    Bruh.push_back(temp);
+    averages[j]=temp.OrganizeAverageColor(3);
+  }
+ }
+ else if (choose=="9")
+ {
+    cout << "\n\n Time to start organizing by the color idk red! \n";
   for (int j=0; j<count; j++)
   {
     BMP temp(files[j].c_str());
