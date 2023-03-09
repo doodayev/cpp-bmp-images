@@ -76,7 +76,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageColor(1);
+    averages[j]=temp.OrganizeAverageColor2(255, 0, 0);
   }
  }
  else if (choose=="2" || choose=="Green" || choose=="green" || choose=="g")
@@ -86,7 +86,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageColor(2);
+    averages[j]=temp.OrganizeAverageColor2(0, 255, 0);
   }
  }
  else if (choose=="3" || choose=="Blue" || choose=="blue" || choose=="b")
@@ -96,7 +96,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageColor(3);
+    averages[j]=temp.OrganizeAverageColor2(0, 0, 255);
   }
  }
  else if (choose=="4")
@@ -106,7 +106,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageColor(4);
+    averages[j]=temp.OrganizeAverageColor2(0, 0, 0);
   }
  }
  else if (choose=="5")
@@ -116,7 +116,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageColor(5);
+    averages[j]=temp.OrganizeAverageColor2(255, 255, 0);
   }
  }
  else if (choose=="6")
@@ -126,7 +126,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageColor(6);
+    averages[j]=temp.OrganizeAverageColor2(0, 255, 255);
   }
  }
  else if (choose=="7")
@@ -136,7 +136,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageColor(3);
+    averages[j]=temp.OrganizeAverageColor2(255, 0, 255);
   }
  }
  else if (choose=="8")
@@ -146,7 +146,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageColor(3);
+    averages[j]=temp.OrganizeAverageColor2(0, 162, 232);
   }
  }
  else if (choose=="9")
@@ -156,7 +156,7 @@ int main() {
   {
     BMP temp(files[j].c_str());
     Bruh.push_back(temp);
-    averages[j]=temp.OrganizeAverageColor(3);
+    averages[j]=temp.OrganizeAverageColor2(180, 41, 41);
   }
  }
  else{
