@@ -2,6 +2,8 @@ Angola.bmp
 Bosnia.bmp
 Chechnya.bmp
 China.bmp
+DontSpeakOfThis.bmp
+France.bmp
 Iran.bmp
 Iraq.bmp
 Japan.bmp
