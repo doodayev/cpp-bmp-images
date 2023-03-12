@@ -413,13 +413,10 @@ struct BMP {
                 {
                     for(int x=0; x<bmp_info_header.width; x++)
                     {
-                        Rresult=ColorRed[y][x]-Red;
-                        Gresult=ColorGreen[y][x]-Green;
-                        Bresult=ColorBlue[y][x]-Blue;
 
-                        Rresult=abs(Rresult);
-                        Gresult=abs(Gresult);
-                        Bresult=abs(Bresult);
+                        Rresult=Red-ColorRed[y][x];
+                        Gresult=Green-ColorGreen[y][x];
+                        Bresult=Blue-ColorBlue[y][x];
 
                         Rresult=pow(Rresult,2); // Square these three
                         Gresult=pow(Gresult,2);
@@ -431,7 +428,7 @@ struct BMP {
                 }
                 //Change this maybe
                 intensity=FinalResult/pixels;
-                cout << intensity << endl;
+                cout << "Intensity of this picture is " << intensity << endl;
                 return intensity;
 
     }
