@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/10/09 20:59:00.000.873,=D:\Documents\Summer2023\RADStudio\Unit1.cpp</Transaction>
+    <Transaction>2023/10/09 20:59:00.000.801,=D:\Documents\Summer2023\RADStudio\Project2PCH1.h</Transaction>
+    <Transaction>2023/10/09 20:59:41.000.463,D:\Documents\Summer2023\RADStudio\Project2PCH1.h=D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\Project2PCH1.h</Transaction>
+    <Transaction>2023/10/09 20:59:41.000.498,D:\Documents\Summer2023\RADStudio\Project2.cbproj=D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\Project2.cbproj</Transaction>
+    <Transaction>2023/10/09 20:59:41.000.474,D:\Documents\Summer2023\RADStudio\Unit1.dfm=D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\Unit1.dfm</Transaction>
+    <Transaction>2023/10/09 20:59:41.000.474,D:\Documents\Summer2023\RADStudio\Unit1.cpp=D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\Unit1.cpp</Transaction>
+    <Transaction>2023/10/09 20:59:41.000.474,D:\Documents\Summer2023\RADStudio\Unit1.h=D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\Unit1.h</Transaction>
+    <Transaction>2023/10/09 21:00:04.000.710,D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\Unit1.dfm=D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\MagazineSubscription.dfm</Transaction>
+    <Transaction>2023/10/09 21:00:04.000.710,D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\Unit1.h=D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\MagazineSubscription.h</Transaction>
+    <Transaction>2023/10/09 21:00:04.000.710,D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\Unit1.cpp=D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\MagazineSubscription.cpp</Transaction>
+    <Transaction>2023/10/12 14:25:32.000.093,=D:\Documents\Fall2023\CppBuilder\VCLPracticeAgain\BMP.h</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="MagazineSubscription.cpp"/>
+    <File Path="MagazineSubscription.cpp"/>
+    <File Path="MagazineSubscription.dfm"/>
+    <File Path="MagazineSubscription.h"/>
+    <File Path="Project2.cpp"/>
+    <File Path="Project2PCH1.h"/>
+    <File Path="BMP.h"/>
+  </ProjectSortOrder>
+</BorlandProject>
