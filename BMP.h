@@ -197,7 +197,7 @@ BMP(int32_t width, int32_t height, bool has_alpha = true) {
 			}
         }
 	}
-	  double OrganizeAverageColor2(int Red, int Green, int Blue, int WidthFraction, int HeightFraction)
+	  double OrganizeAverageColor2(int Red, int Green, int Blue, int HeightFraction, int WidthFraction)
 	{
 	  vector<vector<uint8_t>> ColorRed(bmp_info_header.height, std::vector<uint8_t>(bmp_info_header.width));
 	  vector<vector<uint8_t>> ColorGreen(bmp_info_header.height, std::vector<uint8_t>(bmp_info_header.width));

@@ -8,9 +8,10 @@ and this shall remain true for years to come.
 -Both versions of the program must be in the same directory
 as the pictures you wish to sort.
 -For the CLI version of the program the order of arguments are:
-Red, Green, Blue, Height, Width, Choice
+Red, Green, Blue, Width, Height, Choice
 First five values are integers. Sixth value is a character.
 -Height starts from bottom and goes to top.
+-Width starts from left goes to right.
 -Whatever zip files are included are image sets for you to try
 out the program with.
 
