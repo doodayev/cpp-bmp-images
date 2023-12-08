@@ -199,15 +199,11 @@ BMP(int32_t width, int32_t height, bool has_alpha = true) {
 	}
 	  double OrganizeAverageColor2(int Red, int Green, int Blue, int WidthFraction, int HeightFraction)
 	{
-	  auto start = chrono::high_resolution_clock::now();
 	  vector<vector<uint8_t>> ColorRed(bmp_info_header.height, std::vector<uint8_t>(bmp_info_header.width));
 	  vector<vector<uint8_t>> ColorGreen(bmp_info_header.height, std::vector<uint8_t>(bmp_info_header.width));
 	  vector<vector<uint8_t>> ColorBlue(bmp_info_header.height, std::vector<uint8_t>(bmp_info_header.width));
 
-
-	  int Rresult;
-	  int Gresult;
-	  int Bresult;
+	  int Rresult, Gresult, Bresult;
 	  int collection;
 	  double FinalResult=0;
 
@@ -215,15 +211,12 @@ BMP(int32_t width, int32_t height, bool has_alpha = true) {
 	  double intensity=0;
 
 	  uint32_t channels = bmp_info_header.bit_count / 8;
-	  cout << "The Width of the image is " << bmp_info_header.width << endl;
-	  cout << "The height of the image is " << bmp_info_header.height << endl;
 	  for (int y = 0; y < (bmp_info_header.height)/HeightFraction; ++y) {
 			for (int x = 0; x < (bmp_info_header.width)/WidthFraction; ++x) {
 				int index = channels * (y * bmp_info_header.width + x);
 					ColorBlue[y][x] = data[index + 0];
 					ColorGreen[y][x] = data[index + 1];
 					ColorRed[y][x] = data[index + 2];
-					x=x+5;
 				}
 			}
 
@@ -241,17 +234,11 @@ BMP(int32_t width, int32_t height, bool has_alpha = true) {
 						Bresult=Bresult*Bresult;
 
 						collection=Rresult+Gresult+Bresult; //Add them up (2nd to last step)
-						FinalResult=sqrt(collection)+FinalResult;  // Squareroot to finally find "distance" between given and intended color
-					}
+						FinalResult=sqrt(collection)+FinalResult;  // Squareroot to finally find "distance" between
+					}                                              // given and intended color
 				}
-				//Change this maybe
 				intensity=FinalResult/pixels;
-				auto end = chrono::high_resolution_clock::now();
-				cout << "Intensity of this picture is " << intensity << endl;
-				chrono::duration<double> FunctionDuration = end - start;
-				cout << "Array Duration: " << FunctionDuration.count() << " seconds\n";
 				return intensity;
-
 	}
 
 
