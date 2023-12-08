@@ -1,10 +1,14 @@
-###In order to build either the CLI or GUI version. Simply open
-###the project file with C++ Builder and build the project.
+## Video Demonstration
+SOONtm
+### In order to build either the CLI or GUI version. Simply open
+### the project file with C++ Builder and build the project.
 
 In theory, any version of C++ Builder that supports C++ 17 (or higher) should work
 and this shall remain true for years to come.
+You can download it here:
+https://www.embarcadero.com/products/cbuilder/starter
 
-####Some notes about the program:
+#### Some notes about the program:
 -Both versions of the program must be in the same directory
 as the pictures you wish to sort.
 -For the CLI version of the program the order of arguments are:
@@ -15,7 +19,7 @@ First five values are integers. Sixth value is a character.
 -Whatever zip files are included are image sets for you to try
 out the program with.
 
-####This project belongs to:
+#### This project belongs to:
 https://github.com/doodayev/cpp-bmp-images
 
 
